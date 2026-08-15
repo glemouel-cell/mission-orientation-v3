@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mission Orientation V2</title>
+<style>
+:root{--bg:#0d1220;--card:#171e30;--card2:#202a40;--ink:#f5f7fb;--muted:#aab4c8;--accent:#6d8cff;--good:#62d7a0;--border:#2b3650}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#1c2850,transparent 35%),var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:780px;margin:auto;padding:22px 18px 50px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.brand{font-weight:850}.count{font-size:13px;color:var(--muted)}.progress{height:6px;background:#263049;border-radius:99px;overflow:hidden}.bar{height:100%;background:var(--accent);transition:.3s}
+.card{background:rgba(23,30,48,.96);border:1px solid var(--border);border-radius:26px;padding:25px;margin-top:18px;box-shadow:0 18px 60px #0005}.kicker{color:#91a8ff;font-size:12px;font-weight:850;text-transform:uppercase;letter-spacing:.1em}.title{font-size:32px;line-height:1.08;margin:10px 0 14px}.sub{color:var(--muted);line-height:1.55}.q{font-size:22px;line-height:1.3;font-weight:800;margin:8px 0 18px}.option{display:block;width:100%;text-align:left;padding:15px 16px;margin:9px 0;border:2px solid var(--border);background:var(--card2);color:var(--ink);border-radius:15px;font:inherit;transition:.15s}.option:hover,.option.selected{border-color:var(--accent);background:#27365d}.emoji{font-size:28px;margin-bottom:7px}button{cursor:pointer}.primary,.secondary{border:0;border-radius:14px;padding:14px 17px;font:inherit;font-weight:800}.primary{background:var(--accent);color:#fff;width:100%;margin-top:17px}.secondary{background:#273149;color:#fff}.nav{display:flex;gap:9px;margin-top:17px}.nav .primary{margin:0}.text{width:100%;min-height:150px;background:#111827;color:#fff;border:2px solid var(--border);border-radius:15px;padding:14px;font:inherit}.small{font-size:12px;color:var(--muted);margin-top:9px}.badge{display:inline-block;padding:7px 10px;border-radius:99px;background:#26365e;color:#b9c6ff;margin:4px 5px 4px 0;font-size:13px;font-weight:750}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{background:#202a40;border:1px solid var(--border);border-radius:16px;padding:15px}.tile b{display:block;margin-bottom:5px}.meter{margin:15px 0}.meterline{height:9px;background:#29334b;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--accent)}.scenario{font-size:18px;line-height:1.45;color:#dbe2f0}.secret{background:#101827;border:1px dashed #52617e;border-radius:16px;padding:15px}.success{color:var(--good);font-weight:800}
+@media(max-width:520px){.card{padding:21px}.title{font-size:28px}.grid{grid-template-columns:1fr}}
+</style>
+
+<style>
+#pwaHelp{display:none;position:fixed;left:14px;right:14px;bottom:14px;z-index:99;background:#171e30;color:#fff;border:1px solid #44516d;border-radius:18px;padding:15px;box-shadow:0 18px 50px #0008;font-size:14px;line-height:1.45}
+#pwaHelp b{display:block;margin-bottom:5px}#pwaHelp button{float:right;margin-left:10px;background:#6d8cff;color:#fff;border:0;border-radius:10px;padding:7px 11px;font-weight:800}
+</style>
+<link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#0d1220"><link rel="apple-touch-icon" href="./icons/icon-192.png"></head>
+<body><div class="app">
+<div class="top"><div class="brand">🧭 Mission Orientation V2</div><div class="count" id="count"></div></div>
+<div class="progress"><div class="bar" id="bar"></div></div><main id="main"></main>
+</div>
+<script>
+const qs=[
+{kind:"intro",title:"Bienvenue dans la mission",txt:"Cette version est différente : il n’y a presque pas de « bonnes réponses ». Tu vas surtout réagir à des situations. À la fin, tu obtiendras une carte de tes moteurs. Tes réponses restent dans ton navigateur jusqu’à ce que tu choisisses de les exporter."},
+{kind:"scenario",title:"Le dernier quart d’heure",q:"Ton équipe est menée d’un point. Il reste 5 minutes. Tu es capitaine. Que fais-tu spontanément ?",opts:["Je prends la responsabilité et donne une consigne claire.","Je cherche l’idée tactique qui peut faire basculer le match.","Je remobilise tout le monde et fais monter l’énergie.","Je demande à chacun ce qu’il pense avant de décider.","Je me concentre sur mon propre jeu pour faire la différence."]},
+{kind:"scenario",title:"Le projet impossible",q:"On te donne un projet avec 3 semaines pour construire quelque chose qui n’existe pas. Ta première réaction ?",opts:["Je cherche immédiatement une méthode et je découpe le problème.","Je commence à imaginer le résultat final.","Je réunis une équipe et répartis les rôles.","Je cherche quelqu’un qui maîtrise déjà le sujet.","Je teste rapidement une première version, quitte à me tromper."]},
+{kind:"scenario",title:"Le désaccord",q:"Deux personnes de ton équipe sont en désaccord et le projet avance mal. Tu fais quoi ?",opts:["Je tranche si nécessaire.","Je cherche qui a les meilleurs arguments.","Je les fais discuter jusqu’à trouver un compromis.","Je prends du recul et cherche la cause du conflit.","Je répartis autrement les responsabilités."]},
+{kind:"scenario",title:"Le risque",q:"On te propose deux projets.",opts:["Projet A : 90 % de chances de réussite, mais assez classique.","Projet B : 40 % de chances de réussite, mais énorme potentiel."],opts2:["A","B"]},
+{kind:"scenario",title:"La réussite",q:"Dans 10 ans, laquelle de ces phrases te ferait le plus plaisir ?",opts:["« Je suis devenu extrêmement compétent dans mon domaine. »","« J’ai construit quelque chose dont je suis fier. »","« Des personnes me font confiance et j’ai une vraie responsabilité. »","« J’ai gagné et atteint un niveau que peu de gens atteignent. »","« Je suis libre de choisir ma vie. »"]},
+{kind:"scenario",title:"Le problème difficile",q:"Tu bloques sur un problème de maths ou de logique depuis 45 minutes.",opts:["Je continue jusqu’à trouver.","Je cherche une autre façon de le représenter.","Je demande un indice.","Je passe à autre chose et j’y reviens plus tard.","Je cherche une explication ou un outil qui peut m’aider."]},
+{kind:"multi",title:"Tes terrains naturels",q:"Choisis jusqu’à 4 domaines dans lesquels tu aimerais devenir très fort.",opts:["Mathématiques / logique","Technologie / IA","Économie / business","Droit / débat","Géopolitique","Écriture / littérature","Arts / design","Sport / performance","Management","Entrepreneuriat","Sciences","Communication"]},
+{kind:"single",title:"Le travail idéal",q:"Dans une équipe, quel rôle t’attire le plus ?",opts:["Le spécialiste que tout le monde consulte","Celui qui fixe la direction","Celui qui trouve les idées nouvelles","Celui qui fait avancer tout le monde","Celui qui négocie avec l’extérieur","Celui qui construit les outils et les systèmes"]},
+{kind:"scenario",title:"Le coach",q:"Ton entraîneur te dit : « Tu as beaucoup de potentiel, mais tu dois changer une habitude importante. »",opts:["Je veux savoir exactement ce que je dois améliorer.","Je réfléchis à la meilleure façon de progresser.","Je préfère essayer et voir si cela fonctionne.","Je demande à quelqu’un d’autre son avis.","Je suis piqué au vif et cela me donne encore plus envie de réussir."]},
+{kind:"single",title:"Le futur",q:"Laquelle te ressemble le plus aujourd’hui ?",opts:["Je veux garder un maximum de portes ouvertes.","J’ai déjà une idée assez précise.","Je veux surtout découvrir ce dont je suis capable.","Je veux tenter le rugby à fond et voir jusqu’où cela mène.","Je veux trouver quelque chose que personne ne peut encore vraiment prévoir."]},
+{kind:"text",title:"Ta journée idéale à 30 ans",q:"Décris une journée de travail idéale. Pas le métier : la journée. Où es-tu ? Avec qui ? Que fais-tu ? Qui décide ? Que ressens-tu ?"},
+{kind:"text",title:"La personne que tu admires",q:"Choisis une personne que tu admires et explique précisément ce que tu admires chez elle."},
+{kind:"text",title:"Question interdite aux parents",q:"Qu’est-ce que tu penses que tes parents ne comprennent pas encore sur toi ou sur ce que tu pourrais vouloir faire plus tard ?"},
+{kind:"text",title:"Ton pari",q:"Si tu pouvais tenter une expérience pendant 1 mois sans aucun risque d’échec, laquelle choisirais-tu ?"},
+{kind:"intro",title:"Fin de la mission",txt:"Tu viens de terminer. Avant de regarder ton profil, prends quelques secondes : ce questionnaire ne sait pas quel métier tu dois faire. Il cherche seulement des indices sur tes moteurs actuels."}
+];
+let i=0,a={};let profiles={leader:0,analyse:0,creation:0,collectif:0,competition:0,autonomie:0,curiosite:0};
+function render(){let q=qs[i],m=document.getElementById("main");document.getElementById("count").textContent=`${i+1}/${qs.length}`;document.getElementById("bar").style.width=(i/(qs.length-1)*100)+"%";
+if(q.kind==="intro"){m.innerHTML=`<section class="card"><div class="emoji">🧭</div><div class="kicker">Étape ${i+1}</div><h1 class="title">${q.title}</h1><p class="sub">${q.txt}</p>${i===0?`<div class="secret">🔒 <b>Confidentialité</b><br><span class="small">Rien n’est envoyé à un serveur par cette mini-app. Tu décides si tu veux partager tes réponses.</span></div>`:""}<button class="primary" onclick="next()">Continuer →</button></section>`;return}
+let body=q.kind==="text"?`<textarea class="text" id="text" placeholder="Écris librement…">${a[i]||""}</textarea>`:q.kind==="multi"?q.opts.map(o=>`<button class="option ${((a[i]||[]).includes(o))?"selected":""}" onclick="multi('${esc(o)}')">${o}</button>`).join(""):q.opts.map(o=>`<button class="option ${(a[i]===o)?"selected":""}" onclick="single('${esc(o)}')">${o}</button>`).join("");
+m.innerHTML=`<section class="card"><div class="kicker">${q.title}</div><div class="q">${q.q}</div>${body}<div class="small">${q.kind==="multi"?"Choisis jusqu’à 4 réponses.":q.kind==="scenario"?"Choisis spontanément, sans trop réfléchir.":""}</div><div class="nav"><button class="secondary" onclick="prev()">←</button><button class="primary" onclick="next()">Suivant →</button></div></section>`}
+function esc(s){return s.replaceAll("'","&#39;")}
+function single(x){a[i]=x;render()}
+function multi(x){let z=a[i]||[];z=z.includes(x)?z.filter(y=>y!==x):(z.length<4?[...z,x]:z);a[i]=z;render()}
+function save(){let t=document.getElementById("text");if(t)a[i]=t.value}
+function next(){save();if(i<qs.length-1){i++;render()}else result()}
+function prev(){save();if(i>0){i--;render()}}
+function result(){
+Object.values(a).flat().forEach(v=>{let t=String(v).toLowerCase();if(/direction|tranche|responsab|leader|fixe la direction|management/.test(t))profiles.leader++;if(/math|logique|problème|spécialiste|systèm|techno|ia/.test(t))profiles.analyse++;if(/idée|crée|art|design|imag/.test(t))profiles.creation++;if(/équipe|remobil|collectif|compromis|avancer tout le monde/.test(t))profiles.collectif++;if(/gagn|compét|réuss|coach|piqué/.test(t))profiles.competition++;if(/libre|indépend|teste|essaye|risque/.test(t))profiles.autonomie++;if(/découvr|apprend|curieux|avis|géopol/.test(t))profiles.curiosite++});
+let arr=Object.entries(profiles).sort((x,y)=>y[1]-x[1]),names={leader:"Leadership",analyse:"Analyse",creation:"Créativité",collectif:"Collectif",competition:"Compétition",autonomie:"Autonomie",curiosite:"Curiosité"};
+let top=arr.slice(0,3).map(x=>names[x[0]]);let exp=[];if(profiles.analyse>=2)exp.push("sciences, ingénierie, data, technologie");if(profiles.leader>=2)exp.push("management, stratégie, entrepreneuriat");if(profiles.creation>=2)exp.push("design, création, communication");if(profiles.collectif>=2)exp.push("management d’équipe, projets, sport");if(profiles.competition>=2)exp.push("sport de haut niveau, business compétitif");if(profiles.autonomie>=2)exp.push("entrepreneuriat, métiers à forte autonomie");if(!exp.length)exp.push("plusieurs domaines avant de choisir");
+document.getElementById("bar").style.width="100%";document.getElementById("main").innerHTML=`<section class="card"><div class="kicker">Mission terminée 🎉</div><h1 class="title">Ta carte du moment</h1><p class="sub">Tes trois moteurs les plus visibles : ${top.map(x=>`<span class="badge">${x}</span>`).join("")}</p>${arr.map(x=>`<div class="meter"><div style="display:flex;justify-content:space-between"><b>${names[x[0]]}</b><span>${x[1]}</span></div><div class="meterline"><div class="fill" style="width:${Math.min(100,x[1]*15)}%"></div></div></div>`).join("")}<h3>🌱 Terrains à explorer</h3><div class="grid">${exp.slice(0,4).map(x=>`<div class="tile">${x}</div>`).join("")}</div><p class="sub"><b>À retenir :</b> ce profil n’est ni une note, ni un diagnostic, ni une recommandation d’orientation. Il montre seulement ce qui ressort de tes réponses aujourd’hui.</p><div class="secret"><b>🔐 Tu contrôles le partage</b><br><span class="small">Tu peux garder tes réponses pour toi, ou exporter un fichier et le donner à tes parents.</span></div><button class="primary" onclick="download()">Exporter mes réponses</button><button class="secondary" style="width:100%;margin-top:9px" onclick="location.reload()">Recommencer</button></section>`}
+function download(){let out={version:"V2",date:new Date().toISOString(),answers:a,profile:profiles};let b=new Blob([JSON.stringify(out,null,2)],{type:"application/json"}),x=document.createElement("a");x.href=URL.createObjectURL(b);x.download="mission-orientation-v2.json";x.click()}
+render();
+</script>
+<div id="pwaHelp"><button onclick="document.getElementById('pwaHelp').style.display='none';localStorage.setItem('hidePwaHelp','1')">OK</button>
+<b>📱 Pour l’utiliser comme une vraie app</b>
+Dans Safari : <b>Partager → Ajouter à l’écran d’accueil</b>. L’icône ouvrira Mission Orientation sans la barre Safari.
+</div>
+
+<script>
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+if (location.protocol !== 'file:' && !localStorage.getItem('hidePwaHelp') && !window.navigator.standalone) {
+  setTimeout(()=>{document.getElementById('pwaHelp').style.display='block'},1200);
+}
+</script>
+</body></html>

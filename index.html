@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mission Orientation">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Mission Orientation V5</title>
+<style>
+:root{--bg:#070b16;--card:#10182b;--card2:#141e34;--line:#293650;--text:#f8f9fd;--muted:#98a5bd;--p:#a855f7;--b:#3b82f6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(700px 400px at 70% -5%,#263d7b,transparent 65%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app{max-width:540px;margin:auto;padding:calc(8px + env(safe-area-inset-top)) 18px 35px}.top{height:50px;display:flex;align-items:center;justify-content:space-between;font-weight:800}.dots{border:1px solid var(--line);background:#111a2d;color:white;border-radius:12px;width:38px;height:38px}.bar{height:5px;background:#1c2740;border-radius:10px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--b));border-radius:10px;transition:.3s}.card{margin-top:18px;padding:23px;border:1px solid var(--line);border-radius:25px;background:linear-gradient(145deg,#131d32,#0d1526);box-shadow:0 20px 70px #0007}.hero{min-height:650px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,transparent 25%,#070b16 88%),radial-gradient(circle at 50% 20%,#2d4a9b,#0a1020 60%)}.compass{font-size:50px;margin-bottom:15px}.kicker{font-size:11px;font-weight:900;letter-spacing:.13em;color:#c084fc}.title{font-size:31px;line-height:1.08;margin:9px 0 12px}.hero h1{font-size:45px;line-height:.98;margin:8px 0}.grad{background:linear-gradient(90deg,#c084fc,#60a5fa);color:transparent;background-clip:text}.sub{color:var(--muted);line-height:1.55}.feature{display:flex;gap:12px;margin-top:15px}.ico{width:38px;height:38px;border-radius:12px;background:#18223a;border:1px solid #31405d;display:grid;place-items:center;flex:none}.feature b{display:block}.feature span{color:var(--muted);font-size:12px}.privacy{margin-top:18px;padding:13px;border-radius:15px;background:#0b1425;border:1px solid #263652;color:#d9e2f2;font-size:12px;line-height:1.45}.choice{width:100%;display:flex;align-items:center;gap:12px;text-align:left;color:white;background:#111a2d;border:1px solid #2a3650;border-radius:17px;padding:14px;margin:9px 0}.choice.sel{border-color:#a855f7;background:#25183d;box-shadow:0 0 0 1px #a855f733}.choice .ci{font-size:22px;width:30px;text-align:center}.choice small{display:block;color:var(--muted);margin-top:3px}.primary,.secondary{width:100%;padding:15px;border-radius:16px;font-weight:850;color:white;margin-top:15px}.primary{border:0;background:linear-gradient(90deg,#a855f7,#3b82f6);box-shadow:0 10px 30px #7040c744}.secondary{background:#111a2c;border:1px solid #2b3852}.back{width:100%;margin-top:9px;padding:13px;border-radius:15px;background:#111a2c;border:1px solid #2b3852;color:white}.pill{display:inline-block;border:1px solid #344361;background:#18233a;border-radius:99px;padding:7px 10px;font-size:12px;margin:4px}.recommend{padding:14px;border-radius:16px;background:#111b2e;border:1px solid #2b3954;margin:9px 0;line-height:1.45}.recommend b{display:block;margin-bottom:4px}.recommend span{font-size:12px;color:var(--muted)}.dual{display:grid;grid-template-columns:1fr 1fr;gap:9px}.meter{margin:13px 0}.meterrow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}.track{height:8px;background:#202b42;border-radius:10px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#a855f7,#3b82f6);border-radius:10px}.textarea{width:100%;min-height:150px;background:#0a1221;color:white;border:1px solid #2b3852;border-radius:15px;padding:14px;outline:0;resize:vertical}.hint,.footer{font-size:11px;color:#7f8ca4;line-height:1.45;margin-top:9px}.nav{display:grid;grid-template-columns:55px 1fr;gap:9px}.nav .primary{margin-top:17px}.backnav{margin-top:17px;border:1px solid #2b3852;border-radius:15px;background:#111a2c;color:white;font-size:24px}
+
+.action{margin-top:14px;padding:16px;border-radius:18px;background:linear-gradient(145deg,#171d38,#10182b);border:1px solid #34436a}
+.action .tag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.12em;color:#c084fc;margin-bottom:7px}
+.action h3{margin:3px 0 7px;font-size:18px}
+.action p{color:#c0cbe0;line-height:1.5;font-size:13px;margin:6px 0}
+.action ul{padding-left:19px;color:#c0cbe0;line-height:1.6;font-size:13px}
+.action strong{color:white}
+.choicebox{border:1px solid #303e5c;background:#10192c;border-radius:17px;padding:14px;margin:10px 0}
+.choicebox.active{border-color:#a855f7;background:#21173a}
+.choicebox b{display:block;font-size:14px;margin-bottom:5px}
+.choicebox span{display:block;color:#9eabc1;font-size:12px;line-height:1.45}
+.reassure{background:linear-gradient(90deg,#141b35,#102235);border:1px solid #30466a;border-radius:18px;padding:17px;margin-top:14px}
+.reassure b{font-size:15px}
+.reassure p{color:#b9c5d9;line-height:1.55;font-size:13px}
+</style>
+</head>
+<body><div class="app">
+<header class="top"><span>🧭 Mission Orientation</span><button class="dots" onclick="privacy()">•••</button></header>
+<div class="bar"><i id="progress"></i></div><main id="screen"></main>
+</div>
+<script>
+const Q=[
+["TES MOTEURS","Qu’est-ce qui te motive le plus ?",["🎯 Me dépasser et atteindre un objectif","💡 Créer et trouver des idées","🧠 Comprendre et résoudre des problèmes","👥 Faire réussir un groupe","🪽 Être libre de choisir ma façon de faire"]],
+["TES MOTEURS","Quand un sujet est difficile, tu as plutôt envie de…",["🧠 Comprendre jusqu’au bout","🚀 Persévérer jusqu’à réussir","💡 Trouver une autre manière de faire","👥 Demander des avis et construire avec les autres","🪽 Passer à autre chose si ça ne m’intéresse pas"]],
+["MISE EN SITUATION","Ton équipe est menée d’un point à 5 minutes de la fin. Tu es capitaine. Tu fais quoi ?",["👑 Je donne une consigne claire et prends la responsabilité","🧠 Je cherche la meilleure solution tactique","👥 Je remobilise tout le monde","🚀 Je me concentre sur l’action qui peut faire basculer le match","🔎 Je demande rapidement l’avis des autres"]],
+["MISE EN SITUATION","Deux personnes de ton équipe sont en conflit. Tu réagis comment ?",["👑 Je tranche si nécessaire","🧠 Je cherche la cause du problème","👥 Je les aide à trouver un accord","🚀 Je redistribue les rôles pour avancer","🔎 Je cherche qui a les meilleurs arguments"]],
+["LEADERSHIP","Quelle phrase te ressemble le plus ?",["👑 J’aime être celui sur qui on peut compter pour décider.","👥 J’aime faire progresser les autres.","🧠 Je préfère être le spécialiste que tout le monde consulte.","🚀 J’aime viser un niveau que peu de gens atteignent.","🪽 J’aime construire mon propre chemin."]],
+["LEADERSHIP","Qu’est-ce qui t’attire dans l’idée d’être leader ?",["👑 Décider et fixer le cap","👥 Faire grandir une équipe","🚀 Gagner et atteindre un objectif","💡 Donner une vision ou une idée","🔎 Comprendre la situation avant de décider"]],
+["RISQUE & AMBITION","Tu dois choisir entre deux projets.",["🛡️ 90 % de chances de réussite, mais assez classique.","🔥 40 % de chances de réussite, mais potentiel énorme."]],
+["RUGBY & PERFORMANCE","Qu’est-ce qui te donne le plus envie de progresser au rugby ?",["🚀 Voir mon niveau monter","👥 Être un joueur sur lequel l’équipe compte","🧠 Comprendre le jeu et prendre les bonnes décisions","👑 Prendre des responsabilités","🔎 Découvrir jusqu’où mon potentiel peut m’emmener"]],
+["RUGBY & PERFORMANCE","Si le rugby pro devient difficile à atteindre, quelle réaction te ressemble le plus ?",["🚀 Je veux aller le plus loin possible malgré tout.","🔎 Je veux comprendre ce qui m’a manqué et apprendre.","👑 Je pourrais avoir envie d’entraîner ou manager dans le sport.","🪽 Je garde le rugby comme passion et construis autre chose.","🧠 Je cherche un autre environnement compétitif."]],
+["ÉTUDES","À l’école, ce qui te donne le plus de satisfaction est…",["🧠 Réussir un raisonnement difficile","💡 Produire quelque chose d’original","✍️ Écrire et défendre une idée","🚀 Obtenir une très bonne performance","🔎 Comprendre un sujet en profondeur"]],
+["ÉTUDES","Après le lycée, qu’est-ce qui t’attire le plus ?",["🎓 Une formation exigeante qui ouvre beaucoup de portes","🚀 Une formation orientée business, stratégie ou management","🧠 Une formation scientifique ou technologique","💡 Un parcours où je peux créer des projets","🔎 Je veux encore explorer avant de choisir"]],
+["TON FUTUR","Dans une journée de travail idéale à 30 ans, qu’est-ce qui compte le plus ?",["👑 Une équipe à diriger","🧠 Des problèmes difficiles à résoudre","🪽 Être libre de décider","🚀 Un environnement très compétitif","💗 Un travail utile et qui a du sens"]],
+["TON FUTUR","Quelle réussite à 30 ans te rendrait le plus fier ?",["👑 Diriger une équipe ou une organisation","💡 Avoir créé quelque chose","🧠 Être reconnu comme excellent dans mon domaine","🚀 Avoir atteint un niveau exceptionnel","🪽 Avoir une grande liberté"]],
+];
+const OPEN=[
+["TON FUTUR","Décris une journée de travail idéale à 30 ans. Où es-tu ? Avec qui ? Que fais-tu ?"],
+["TOI","Choisis une personne que tu admires. Qu’est-ce que tu admires précisément chez elle ?"],
+["TOI","Qu’est-ce que tu aimerais que tes parents comprennent mieux sur toi ou ton avenir ?"],
+["TOI","Si tu pouvais essayer n’importe quelle activité pendant un mois sans risque d’échec, laquelle choisirais-tu ? Pourquoi ?"]
+];
+const dims=["analyse","autonomie","performance","creativite","impact","leadership","collectif","curiosite"];
+const names={analyse:"Analyse & Réflexion",autonomie:"Autonomie",performance:"Défi & Performance",creativite:"Créativité",impact:"Impact & Sens",leadership:"Leadership",collectif:"Collectif",curiosite:"Curiosité"};
+const icons={analyse:"🧠",autonomie:"🪽",performance:"🚀",creativite:"💡",impact:"💗",leadership:"👑",collectif:"👥",curiosite:"🔎"};
+const weights=[
+[[2,0,3,0,0,0,0,1],[0,2,0,3,0,0,0,1],[3,0,0,0,0,0,0,3],[0,0,0,0,1,0,3,1],[0,3,0,0,0,0,0,1]],
+[[3,0,0,0,0,0,0,3],[0,0,3,0,0,0,0,0],[0,1,0,3,0,0,0,1],[0,0,0,0,1,0,3,0],[0,2,0,0,0,0,0,1]],
+[[0,0,1,0,0,3,1,0],[2,0,0,0,0,0,0,2],[0,0,0,0,1,1,3,0],[0,0,3,0,0,0,0,0],[1,0,0,0,0,0,2,3]],
+[[0,0,0,0,0,3,0,0],[3,0,0,0,0,0,0,2],[0,0,0,0,2,0,3,0],[0,2,2,0,0,2,0,0],[2,0,0,0,0,0,0,3]],
+[[0,0,0,0,0,3,0,0],[0,0,0,0,2,0,3,0],[3,0,0,0,0,0,0,2],[0,0,3,0,0,1,0,0],[0,3,0,0,0,0,0,0]],
+[[0,0,0,0,0,3,0,0],[0,0,0,0,2,0,3,0],[0,0,3,0,0,0,0,0],[0,0,0,3,0,2,0,0],[3,0,0,0,0,0,0,2]],
+[[1,0,0,0,0,0,0,0],[0,2,3,2,0,0,0,0]],
+[[1,0,3,0,0,0,2,2],[0,0,0,0,1,0,3,0],[3,0,0,0,0,0,0,3],[0,0,1,0,0,3,0,0],[0,2,2,0,0,0,0,3]],
+[[0,3,3,0,0,0,0,0],[0,0,0,0,0,0,0,3],[0,0,0,0,1,3,3,0],[0,3,0,0,0,0,1,0],[2,0,2,0,0,0,0,1]],
+[[3,0,0,0,0,0,0,0],[0,0,0,3,0,0,0,0],[0,0,0,0,2,0,0,2],[0,0,3,0,0,0,0,0],[3,0,0,0,0,0,0,3]],
+[[2,0,3,0,0,0,0,0],[0,3,2,0,0,3,0,0],[3,0,0,0,0,0,0,2],[0,3,0,3,0,0,0,0],[0,2,0,0,0,0,0,3]],
+[[0,0,0,0,0,3,2,0],[3,0,0,0,0,0,0,2],[0,3,0,1,0,0,0,0],[0,0,3,0,0,0,0,0],[0,0,0,0,3,0,2,0]],
+[[0,0,0,0,0,3,2,0],[0,3,0,3,0,0,0,0],[3,0,0,0,0,0,0,2],[0,0,3,0,0,0,0,0],[0,3,0,0,0,0,0,0]]
+];
+let a=JSON.parse(localStorage.getItem("mo6")||"{}"),step=0;
+function save(){localStorage.setItem("mo6",JSON.stringify(a))}
+function home(){step=0;document.getElementById("progress").style.width="0";document.getElementById("screen").innerHTML=`<section class="card hero"><div class="compass">🧭</div><div class="kicker">MISSION ORIENTATION · V5</div><h1>Connais-toi.<br><span class="grad">Explore.</span><br>Choisis ton chemin.</h1><p class="sub">Un parcours pour comprendre tes moteurs, explorer ton avenir et préparer une vraie discussion avec tes parents.</p><div class="feature"><div class="ico">🎯</div><div><b>Des choix concrets</b><span>Mises en situation, leadership, ambition</span></div></div><div class="feature"><div class="ico">🎙️</div><div><b>Une restitution narrative</b><span>Ton profil raconté, pas seulement noté</span></div></div><div class="feature"><div class="ico">🔐</div><div><b>Confidentiel</b><span>Tes réponses restent sur ton appareil</span></div></div><button class="primary" onclick="step=1;render()">Commencer</button></section>`}
+function render(){if(step===0)return home();let total=Q.length+OPEN.length;if(step>total)return result();document.getElementById("progress").style.width=((step-1)/total*100)+"%";if(step<=Q.length){let i=step-1,q=Q[i],sel=a["q"+i];document.getElementById("screen").innerHTML=`<section class="card"><div class="kicker">${q[0]}</div><h1 class="title">${q[1]}</h1>${q[2].map((x,n)=>`<button class="choice ${sel===n?"sel":""}" onclick="pick(${n})"><div class="ci">${x.slice(0,2)}</div><div>${x.slice(3)}</div></button>`).join("")}<div class="hint">Réponds spontanément. Il n’y a pas de bonne réponse.</div><div class="nav"><button class="backnav" onclick="prev()">‹</button><button class="primary" onclick="next()">Suivant →</button></div></section>`}else{let i=step-Q.length-1,key="t"+i;document.getElementById("screen").innerHTML=`<section class="card"><div class="kicker">${OPEN[i][0]}</div><h1 class="title">${OPEN[i][1]}</h1><textarea class="textarea" id="txt" placeholder="Écris librement…">${a[key]||""}</textarea><div class="hint">Cette réponse est libre et ne sert pas directement au score.</div><div class="nav"><button class="backnav" onclick="prev()">‹</button><button class="primary" onclick="next()">Suivant →</button></div></section>`}}
+function pick(n){a["q"+(step-1)]=n;save();render()}
+function next(){if(step>Q.length){a["t"+(step-Q.length-1)]=document.getElementById("txt").value;save()}step++;render()}
+function prev(){if(step>1){if(step>Q.length){a["t"+(step-Q.length-1)]=document.getElementById("txt").value;save()}step--;render()}}
+function score(){let s=Object.fromEntries(dims.map(x=>[x,0]));Q.forEach((q,i)=>{let n=a["q"+i];if(n==null)return;weights[i][n].forEach((v,j)=>s[dims[j]]+=v)});let mx=Math.max(...Object.values(s),1);dims.forEach(k=>s[k]=Math.round(s[k]/mx*100));return s}
+function narrative(s,o){let lead=s.leadership>=70,perf=s.performance>=70,ana=s.analyse>=70,crea=s.creativite>=70;let intro=lead&&perf?"Tu sembles avoir un profil assez tourné vers le défi et la responsabilité. Tu ne cherches pas seulement à réussir : tu sembles aimer les situations dans lesquelles il faut se dépasser, décider et entraîner les autres.":ana&&crea?"Tu sembles combiner une vraie curiosité intellectuelle avec une envie de créer et de trouver ta propre manière de faire. Tu pourrais aimer les problèmes qui demandent à la fois réflexion et imagination.":ana&&perf?"Tu sembles aimer comprendre en profondeur, puis utiliser cette compréhension pour progresser et atteindre un objectif exigeant.":"Tes réponses dessinent un profil assez riche, avec plusieurs moteurs. L’enjeu des prochaines années sera surtout d’expérimenter pour découvrir lesquels deviennent vraiment importants pour toi.";let second=lead?"Le leadership ressort aussi. Tu sembles attiré par les situations où quelqu’un doit prendre ses responsabilités, donner une direction ou faire réussir un groupe. Cela ne signifie pas forcément « devenir manager » : il faudra surtout vérifier si tu prends réellement du plaisir à porter un collectif.":"Ton profil ne donne pas une seule direction évidente, et c’est plutôt une bonne nouvelle à ton âge. Tu as plusieurs portes ouvertes.";let third=perf?"La compétition et le dépassement de soi semblent importants. Le rugby peut donc être un excellent terrain d’apprentissage, indépendamment de la possibilité de devenir professionnel.":"Le rugby peut rester un formidable terrain d’apprentissage : collectif, discipline, prise de décision et gestion de la pression sont utiles bien au-delà du sport.";return [intro,second,third]}
+
+function nextOrientation(s){
+  const math = s.analyse >= 58;
+  const lead = s.leadership >= 62;
+  const perf = s.performance >= 62;
+  const crea = s.creativite >= 58;
+  const impact = s.impact >= 58;
+  let title, intro, routes;
+
+  if(math && lead && (s.curiosite >= 55 || perf)){
+    title = "Ton choix pertinent pour la seconde : garder les maths ouvertes et explorer le monde de la stratégie.";
+    intro = "À ce stade, tu n’as pas besoin de choisir un métier. Le choix le plus intelligent est de construire un trio de matières qui te ressemble et qui garde plusieurs portes ouvertes.";
+    routes = [
+      ["🧠 Maths + HGGSP + SES", "Une hypothèse forte si tu aimes raisonner, comprendre le monde, argumenter et que l’idée de diriger ou de travailler dans la stratégie t’attire."],
+      ["🧠 Maths + HGGSP + HLP / Arts", "À tester si tu veux conserver une vraie place pour l’écriture, la création et l’expression personnelle."],
+      ["🧪 Maths + une spécialité scientifique + une spécialité d’ouverture", "À explorer si les sciences te donnent envie quand tu les rencontres au lycée, sans te forcer à choisir un domaine qui ne t’attire pas."]
+    ];
+  } else if(math && crea){
+    title = "Ton choix pertinent pour la seconde : garder les maths ouvertes et tester sérieusement le couple réflexion + création.";
+    intro = "Ton profil semble pouvoir vivre à la frontière entre raisonnement et création. La seconde doit te permettre de vérifier si cette combinaison te donne réellement de l’énergie.";
+    routes = [
+      ["🧠 Maths + HGGSP + Arts / HLP", "Une combinaison à tester si tu aimes à la fois résoudre, argumenter, écrire et créer."],
+      ["🧠 Maths + HGGSP + SES", "À tester si la partie stratégie, économie et compréhension du monde professionnel t’attire davantage."],
+      ["🎨 Maths + Arts + une spécialité d’ouverture", "À envisager si la création prend progressivement une place centrale dans ce que tu veux faire."]
+    ];
+  } else if(lead && perf){
+    title = "Ton choix pertinent pour la seconde : explorer les environnements où l’on décide, agit et fait progresser un collectif.";
+    intro = "Le leadership et le goût du défi semblent importants. La seconde doit surtout te permettre de vérifier si tu aimes réellement prendre des responsabilités, pas seulement l’idée de le faire.";
+    routes = [
+      ["📈 HGGSP + SES + Maths", "Une hypothèse très cohérente pour explorer stratégie, économie, décision et raisonnement quantitatif."],
+      ["📈 HGGSP + SES + HLP / Arts", "À tester si l’argumentation, l’expression et la créativité comptent beaucoup pour toi."],
+      ["🏉 Sport + sciences / management", "À explorer selon les spécialités proposées par ton lycée, notamment si tu veux comprendre les métiers autour de la performance sportive."]
+    ];
+  } else {
+    title = "Ton choix pertinent pour la seconde : ne pas chercher une réponse définitive, mais organiser tes explorations.";
+    intro = "Ton profil ne pointe pas encore vers une seule direction. C’est normal et même utile. La meilleure décision est de choisir des matières qui te plaisent et qui te permettent de tester plusieurs univers.";
+    routes = [
+      ["🔎 Un choix qui conserve plusieurs portes ouvertes", "Garde une matière dans laquelle tu es solide et ajoute deux domaines que tu as réellement envie d’explorer."],
+      ["💡 Une matière nouvelle", "Profite de la seconde pour tester un domaine que tu connais peu, plutôt que de choisir uniquement ce que tu sais déjà réussir."],
+      ["👥 Une matière qui te fait progresser humainement", "Observe où tu prends confiance, argumentes, travailles en équipe ou prends naturellement des responsabilités."]
+    ];
+  }
+
+  return {title,intro,routes,math,lead,perf,crea,impact};
+}
+
+function orientationBlock(s){
+  const o=nextOrientation(s);
+  const availability="Les spécialités citées ici sont des pistes à explorer si elles sont proposées par ton lycée. Elles ne constituent pas une prescription.";
+  return `<section class="card">
+    <div class="kicker">TON PROCHAIN CHOIX</div>
+    <h2>🎯 ${o.title}</h2>
+    <p class="sub">${o.intro}</p>
+    <div class="action">
+      <div class="tag">CE QUE TU DOIS FAIRE EN SECONDE</div>
+      <h3>Pas choisir ton métier. Choisir ce que tu veux tester.</h3>
+      <ul>
+        <li><strong>Garder une base forte</strong> dans les matières où tu as de vraies facilités.</li>
+        <li><strong>Tester deux ou trois univers</strong> avant de choisir tes spécialités de première.</li>
+        <li><strong>Observer ton énergie</strong> : qu’est-ce qui te donne envie de travailler davantage, même quand c’est difficile ?</li>
+        <li><strong>Comparer la réalité avec l’idée que tu t’en fais</strong> en parlant aux professeurs, à des étudiants et à des professionnels.</li>
+      </ul>
+      <p>${availability}</p>
+    </div>
+    ${o.routes.map((r,i)=>`<div class="choicebox ${i===0?"active":""}">
+      <b>${r[0]}</b><span>${r[1]}</span>
+    </div>`).join("")}
+    <div class="reassure">
+      <b>🌱 Et si tu te trompes ? Ce n’est pas grave.</b>
+      <p>Tu as 14 ans. Ton objectif n’est pas de trouver aujourd’hui le métier que tu feras à 30 ans. Tu dois surtout apprendre à te connaître.</p>
+      <p>Tu peux essayer quelque chose, découvrir que tu n’aimes pas, changer d’avis et repartir dans une autre direction. <strong>Savoir ce que tu n’aimes pas est déjà une information précieuse.</strong></p>
+      <p>L’orientation est progressive : en seconde, tu choisis 3 spécialités pour la première, puis tu en gardes 2 en terminale. Le système est justement conçu pour permettre cette exploration.</p>
+    </div>
+  </section>
+  <section class="card">
+    <div class="kicker">TON PLAN D’EXPLORATION</div>
+    <h2>🗺️ Les 4 étapes</h2>
+    <div class="recommend"><b>1 · Début de seconde</b><span>Repère les matières qui t’attirent réellement, pas seulement celles dans lesquelles tu as de bonnes notes.</span></div>
+    <div class="recommend"><b>2 · Pendant l’année</b><span>Teste au moins deux univers : par exemple stratégie/économie, sciences, création, sport, droit ou relations internationales.</span></div>
+    <div class="recommend"><b>3 · Avant le choix des spécialités</b><span>Compare tes impressions avec les programmes réels et les attendus des formations qui t’intriguent.</span></div>
+    <div class="recommend"><b>4 · Fin de seconde</b><span>Choisis 3 spécialités qui te plaisent, dans lesquelles tu peux progresser et qui gardent des portes cohérentes avec tes explorations.</span></div>
+    <button class="secondary" onclick="openHorizons()">🔎 Tester mes combinaisons sur Horizons21</button>
+  </section>`;
+}
+
+function openHorizons(){
+  window.open("https://www.onisep.fr/horizons21","_blank");
+}
+
+function result(){let s=score(),o=dims.map(k=>[k,s[k]]).sort((x,y)=>y[1]-x[1]),n=narrative(s,o),top=o.slice(0,3).map(x=>names[x[0]]);let rec=[["🧠 Sciences & Technologies","Ingénierie, IA, data, recherche…",s.analyse],["📈 Stratégie & Management","Conseil, management, entrepreneuriat…",s.leadership*.45+s.performance*.3+s.autonomie*.25],["💼 Finance & Économie","Finance, audit, analyse, économie…",s.analyse*.45+s.performance*.35+s.autonomie*.2],["🎨 Création & Design","Design, architecture, médias, communication…",s.creativite],["⚖️ Droit & Relations","Droit, négociation, diplomatie, affaires publiques…",s.impact*.4+s.leadership*.4+s.curiosite*.2],["🏉 Sport & Performance","Sport de haut niveau, management sportif…",s.performance*.55+s.collectif*.25+s.leadership*.2]].sort((x,y)=>y[2]-x[2]).slice(0,4);document.getElementById("progress").style.width="100%";document.getElementById("screen").innerHTML=`<section class="card"><div class="kicker">TON PORTRAIT</div><h1 class="title">Voilà ce que j’ai compris de toi.</h1><p class="sub">${n[0]}</p><p class="sub">${n[1]}</p><p class="sub">${n[2]}</p><div>${top.map(x=>`<span class="pill">✨ ${x}</span>`).join("")}</div><button class="primary" onclick="speak()">▶︎ Écouter mon profil</button><div class="hint">La voix utilise la synthèse vocale de ton iPhone. Aucune donnée n’est envoyée.</div></section><section class="card"><div class="kicker">CE QUE ÇA PEUT VOULOIR DIRE</div><h2>🧠 Tes moteurs</h2><div class="recommend"><b>Ce qui peut te donner de l’énergie</b><span>${s.leadership>=70?"Prendre des responsabilités, fixer un cap et faire réussir un groupe.":s.autonomie>=70?"Avoir de la liberté pour choisir ta manière de faire et construire ton propre chemin.":"Comprendre, progresser et trouver un environnement où plusieurs de tes moteurs peuvent s’exprimer."}</span></div><div class="recommend"><b>Ce qui pourrait te frustrer</b><span>${s.autonomie>=70?"Un environnement très contrôlé ou répétitif pourrait te peser.":s.performance>=70?"Un environnement sans objectif clair ou sans défi pourrait finir par t’ennuyer.":"Il faudra surtout le vérifier par l’expérience."}</span></div><div class="recommend"><b>Ton style dans un groupe</b><span>${s.leadership>=70?"Tu pourrais naturellement prendre des responsabilités quand le groupe a besoin d’une direction.":s.collectif>=70?"Tu sembles sensible à la dynamique du groupe et à la réussite collective.":"Observe dans quelles situations les autres viennent spontanément vers toi."}</span></div></section>${orientationBlock(s)}<section class=\"card\"><div class=\"kicker\">RUGBY & ÉTUDES</div><h2>🏉 Garder les deux portes ouvertes</h2><p class="sub">Tu n’as pas besoin de choisir maintenant. L’objectif est de faire progresser les deux projets aussi longtemps que possible.</p><div class="dual"><div class="recommend"><b>🏉 Rugby</b><span>Engagement actuel</span><div class="track"><div class="fill" style="width:${Math.min(99,Math.round(s.performance*.55+s.collectif*.25+s.leadership*.2))}%"></div></div></div><div class="recommend"><b>📚 Études</b><span>Appétence académique</span><div class="track"><div class="fill" style="width:${Math.min(99,Math.round(s.analyse*.45+s.curiosite*.2+s.autonomie*.2+s.performance*.15))}%"></div></div></div></div></section><section class="card"><div class="kicker">PISTES À EXPLORER</div><h2>🔎 Pas des métiers. Des terrains de jeu.</h2>${rec.map(r=>`<div class="recommend"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}</section><section class="card"><div class="kicker">À DISCUTER AVEC TES PARENTS</div><h2>💬 6 questions pour la suite</h2>${["Est-ce que je me vois vraiment diriger des personnes ? Qu’est-ce qui me plaît dans cette idée ?","Qu’est-ce que le rugby m’apprend sur moi ?","Si le rugby ne devient pas mon métier, qu’est-ce que je veux absolument garder ?","Qu’est-ce que j’ai envie d’essayer au lycée pour mieux me connaître ?","Quelles études m’attirent vraiment, indépendamment du prestige d’une école ?","Quelle décision n’ai-je surtout pas besoin de prendre maintenant ?"].map((x,i)=>`<div class="recommend"><b>${i+1}. ${x}</b></div>`).join("")}</section><section class="card"><div class="kicker">VOIR LE DÉTAIL</div><button class="secondary" onclick="details()">📊 Afficher les scores</button><button class="primary" onclick="exportData()">📤 Exporter mes réponses</button><button class="secondary" onclick="restart()">↻ Recommencer</button><div class="footer">Ce résultat ne prédit pas ton avenir. C’est une hypothèse de travail : teste, observe, change d’avis. Chaque expérience t’apprend quelque chose.</div></section>`}
+function speak(){let s=score(),o=dims.map(k=>[k,s[k]]).sort((a,b)=>b[1]-a[1]),n=narrative(s,o),text="Voilà ce que tes réponses racontent de toi. "+n.join(" ")+" Tes trois dimensions les plus fortes sont "+o.slice(0,3).map(x=>names[x[0]]).join(", ")+". Ce résultat ne prédit pas ton avenir. Il sert surtout à choisir ce que tu as envie d’explorer.";if(!speechSynthesis){alert("La lecture vocale n’est pas disponible.");return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang="fr-FR";u.rate=.94;speechSynthesis.speak(u)}
+function details(){let s=score(),o=dims.map(k=>[k,s[k]]).sort((a,b)=>b[1]-a[1]);document.getElementById("screen").innerHTML=`<section class="card"><div class="kicker">DÉTAIL DU PROFIL</div><h1 class="title">Tes dimensions</h1><p class="sub">Ces scores sont des repères, pas des notes.</p>${o.map(x=>`<div class="meter"><div class="meterrow"><span>${icons[x[0]]} ${names[x[0]]}</span><b>${x[1]}%</b></div><div class="track"><div class="fill" style="width:${x[1]}%"></div></div></div>`).join("")}<button class="primary" onclick="result()">← Retour au portrait</button></section>`}
+function exportData(){let s=score(),o=nextOrientation(s);let data={version:"V6",date:new Date().toISOString(),answers:a,profile:s,nextOrientation:{title:o.title,routes:o.routes},freeResponses:Object.fromEntries(OPEN.map((x,i)=>["t"+i,a["t"+i]||""]))};let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),el=document.createElement("a");el.href=u;el.download="mission-orientation-v6.json";el.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function restart(){if(confirm("Effacer les réponses enregistrées sur cet appareil ?")){localStorage.removeItem("mo6");a={};step=0;home()}}
+function privacy(){alert("CONFIDENTIALITÉ\n\nTes réponses restent dans le navigateur de cet appareil. Elles ne sont pas envoyées à un serveur. Tu peux choisir de les exporter.\n\nSi l’appareil est partagé, évite d’y laisser tes réponses.")}
+if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
+home();
+</script></body></html>
